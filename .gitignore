@@ -1,0 +1,11 @@
+# Root-level ignores
+node_modules/
+.env
+dist/
+build/
+*.log
+
+# Ignores subfolder stuff just in case
+client/node_modules/
+client/build/
+server/node_modules/
