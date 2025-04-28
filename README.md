@@ -7,11 +7,11 @@
 Ariella Rollins   https://github.com/Ariella-Rollins 
 
 ## Technologies:
-Fullstack MERN.
-Front-end: React
-Back-end: Express, Node.js
-Database: MongoDB with Mongoose
-Other: Axios, B-crypt, JS-webtoken
+Fullstack MERN:  
+Front-end: React  
+Back-end: Express, Node.js  
+Database: MongoDB with Mongoose  
+Other: Axios, B-crypt, JS-webtoken  
 
 ## Setup
 1. Clone the repo
