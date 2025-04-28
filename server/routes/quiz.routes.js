@@ -12,5 +12,7 @@ quizRouter.route('/')
     .put (updateQuiz)
     .delete (deleteQuiz)
 
+    // quizRouter.route("/upload")
+
 
 export default quizRouter

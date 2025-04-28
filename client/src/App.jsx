@@ -18,6 +18,33 @@ function App() {
   const [user, setUser] = useState({})
   const [userQuizzes, setUserQuizzes] = useState([])
 
+
+
+
+
+  // if user refreshes the page, fetch login data from cookie and set state to keep user logged in.
+
+  // useEffect(() => {
+  //   const getLoginData = async () => {
+  //     try {
+  //       const res = await fetch('/api/user/profile', {
+  //         credentials: 'include' // this is KEY: send cookies with request
+  //       });
+  
+  //       if (!res.ok) throw new Error('Not logged in');
+  
+  //       const data = await res.json();
+  //       // set user state or context
+  //       setUser(data);
+  //     } catch (err) {
+  //       // user not logged in or session expired
+  //       setUser(null);
+  //     }
+  //   };
+  
+  //   getLoginData();
+  // }, []);
+
   return (
     <>
     <Header/>

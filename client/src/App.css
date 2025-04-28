@@ -314,7 +314,7 @@ h2 {
   height: 175px;
   object-fit: cover;
   border-radius: 10px;
-  transition: .4s;
+  transition: .2s;
   transition-timing-function: ease-in-out;
 }
 
@@ -323,7 +323,7 @@ h2 {
   height: 200px;
   transition: .4s;
   transition-timing-function: ease-in-out;
-  transition-delay: .2s;
+  transition-delay: .1s;
 }
 
 .item a {
@@ -523,7 +523,7 @@ form {
 
 .quiz-card p {
   position: absolute;
-  top: 35%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 15pt;
@@ -639,8 +639,20 @@ form {
 
 .quiz-form {
   display: flex;
+  align-items: start;
+}
+
+.pic {
+  display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
+  justify-content: center;
+  margin: 50px 0px 0px 50px;
+  width: 250px;
+}
+
+.pic input {
+  margin-top: 10px;
 }
 
 .q-label {

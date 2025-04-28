@@ -82,11 +82,7 @@ export const Home_page = ({allQuizzes, setAllQuizzes}) => {
                                 index < 6 &&
                                 <div className="item" key={`clone-${index}`}>
                                     <Link to={`/quiz/${one._id}`}>
-                                    <img src={index== 0? "pokemon.jpg":
-                                    index==1? "/cook.jpg":
-                                    index ==2? "/duck.jpg":
-                                    index == 3? "/fern.jpg":
-                                    index==4? "sponge.jpg": "parrot.jpg"} alt={index} />
+                                    <img src={one.pic? `http://localhost:8000${one.pic}`: "plants.jpg"} />
                                     </Link>
                                     <Link to={`/quiz/${one._id}`}>{one.name}</Link>
                                 </div>
@@ -98,11 +94,7 @@ export const Home_page = ({allQuizzes, setAllQuizzes}) => {
                                 index<6 &&
                                 <div className="item" key={`clone-${index}`}>
                                     <Link to={`/quiz/${one._id}`}>
-                                    <img src={index== 0? "pokemon.jpg":
-                                    index==1? "/cook.jpg":
-                                    index ==2? "/duck.jpg":
-                                    index == 3? "/fern.jpg":
-                                    index==4? "sponge.jpg": "parrot.jpg"} alt={index} />
+                                    <img src={one.pic? `http://localhost:8000${one.pic}`: "plants.jpg"}/>
                                     </Link>
                                     <Link to={`/quiz/${one._id}`}>{one.name}</Link>
                                 </div>
@@ -117,10 +109,9 @@ export const Home_page = ({allQuizzes, setAllQuizzes}) => {
             <h2>Recently added:</h2>
                 {allQuizzes.slice().reverse().map((one, index)=> (
                     <div className='quiz' key={index}>
-                        
                         <Link to={`/quiz/${one._id}`} >
                         <div className='quiz-card'>
-                            <img src="plants.jpg" alt="quiz"></img>
+                            <img src={one.pic? `http://localhost:8000${one.pic}`: "plants.jpg"} alt="quiz"></img>
                             <p>{one.name}</p>
                         </div>
                         </Link>

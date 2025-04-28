@@ -3,9 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { updateQuiz } from '../services/quiz.service'
 import { useEffect } from 'react'
-
-
-
+import { addPic } from '../services/upload.service'
 
 export const Edit_quiz = ({allQuizzes}) => {
     const navigate = useNavigate()
@@ -13,6 +11,8 @@ export const Edit_quiz = ({allQuizzes}) => {
     const [errors, setErrors] = useState({})
     const [quiz, setQuiz] = useState({})
     const [data, setData] = useState({})
+    const [file, setFile] = useState(null);
+
     const {id} = useParams()
     
     // only logged in users can edit quizzes!
@@ -22,7 +22,7 @@ export const Edit_quiz = ({allQuizzes}) => {
         }
     },[isLoggedIn])
 
-    //get quiz info (to auto fill in)
+    //get quiz info (to auto-fill form)
     const getQuiz = async() => {
         try {
             const oneQuiz = allQuizzes.find((one)=> one._id == id)
@@ -44,41 +44,54 @@ export const Edit_quiz = ({allQuizzes}) => {
     }, [quiz])
 
 
-    function editQuiz(e) {
+    async function editQuiz (e) {
         e.preventDefault()
-        console.log("data:", data)
-        const {
-            name,
-            q1, q1a, q1b, q1c, q1d, q1answer,
-            q2, q2a, q2b, q2c, q2d, q2answer,
-            q3, q3a, q3b, q3c, q3d, q3answer,
-            q4, q4a, q4b, q4c, q4d, q4answer,
-            q5, q5a, q5b, q5c, q5d, q5answer
-        } = e.target
-        updateQuiz(data)
-        .then (()=> {
-            navigate("/")
-        })
-        .catch ((err)=> {
-            if (err.response?.data?.errors) {
-                setErrors(err.response.data.errors);
-            } else {
-                setErrors({ general: 'Something went wrong' });
-            }
-        })
+        let quizData = {...data, pic: null}
+        
+        if (file) {
+            const imagePath = await handleUpload(file)
+            if (imagePath) {
+                quizData.pic = imagePath;
+                console.log("quiz data 2", quizData)
+            }}
+            updateQuiz(quizData)
+                .then(() => {
+                   navigate("/"); // Redirect after quiz is updated
+                })
+                .catch((err) => {
+                    if (err.response?.data?.errors) {
+                        setErrors(err.response.data.errors);
+                    }
+                })
+            
     }
     
     function changeHandler(e) {
         setData((prev)=>({...prev, [e.target.name]: e.target.value}))
     }
+
+    const handleUpload = async () => {
+        const formData = new FormData();
+        formData.append('image', file);
+        // "try" makes it return a promise so the .then (which catches the promise) after handleupload() won't throw an error
+        try {
+            const res = await addPic(formData)
+            console.log('Uploaded Image Path:', res.data.imagePath);
+            return res.data.imagePath
+        }
+        catch (error) {
+        console.log("error!", error)
+        return null
+        }
+        }
     
     return (
         Object.keys(quiz).length == 0 ?
         <p>Loading...</p>:
         <>
         <form className='quiz-form' onSubmit={editQuiz}>
-            <h1 className='whatAreWeMaking'>Edit {quiz.name}</h1>
             <div className="create-quiz-con">
+                <h1 className='whatAreWeMaking'>Edit {quiz.name}</h1>
                 <label className="q-label">Quiz name</label>
                 <input type="text" name="name" className='question' value={data.name} onChange={changeHandler}></input>
                 <label className="q-label">Question 1</label>
@@ -183,6 +196,10 @@ export const Edit_quiz = ({allQuizzes}) => {
                         </div>
                     )}
                 <input type="submit" value="Update quiz!" />
+            </div>
+            <div className="pic">
+                <label className='q-label'> Optional: Quiz photo</label>
+                <input type='file' name="pic" onChange={(e) => setFile(e.target.files[0])}></input>
             </div>
         </form>
         </>
