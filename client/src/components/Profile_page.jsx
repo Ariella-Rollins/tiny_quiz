@@ -84,7 +84,7 @@ export const Profile_page = ({user, setUser, allQuizzes, setAllQuizzes, userQuiz
                         <div className="quiz" key={index}>
                             <Link to={`/quiz/${one._id}`}>
                                 <div className='quiz-card'>
-                                    <img src="/plants.jpg" alt="quiz"></img>
+                                    <img src={one.pic? `http://localhost:8000${one.pic}`: "plants.jpg"} alt="quiz"></img>
                                     <p>{one.name}</p>
                                 </div>
                             </Link>
